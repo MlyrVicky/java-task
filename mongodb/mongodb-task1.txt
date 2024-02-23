@@ -1,0 +1,23 @@
+mongodb  queries :
+
+1. db.ProductDetailes.find()
+
+2. db.ProductDetailes.find({"product_price":{$gte:400,$lte:800}})
+
+3. db.ProductDetailes.find({"product_price":{$nin:[400,600]}})
+
+4. db.ProductDetailes.find({"product_price":{$gt:500}})
+
+5. db.ProductDetailes.find({},{"product_material":true,"product_name":true})
+
+6. db.ProductDetailes.find({id:"10"})
+
+7. const cursor=db.ProductDetailes.find()
+   cursor.forEach((document)=>{print(document.product_name,"  ----> ",document.product_material)})
+   
+8. db.ProductDetailes.find({"product_material":{$regex:/soft/i}})
+
+9. db.ProductDetailes.find({$or:[{product_color:"indigo"},{product_price:492}]})
+
+10. db.ProductDetailes.aggregate([ { $group: { _id: "$product_price", count: { $sum: 1 }, docs: { $push: "$_id" } } }, { $match: { count: { $gt: 1 } } }] ).forEach(function (doc) { doc.docs.shift(); db.ProductDetailes.remove({ _id: { $in: doc.docs } }); });
+
